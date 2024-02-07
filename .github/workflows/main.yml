@@ -1,7 +1,6 @@
 name: Test
 
 on:
-  push:
   pull_request:
   
 jobs:
@@ -14,4 +13,4 @@ jobs:
 
     steps:
     - name: Run...
-      run: set
+      run: "set"
