@@ -20,4 +20,4 @@ jobs:
         
     - name: Run...
       run: |
-        python -c "import sys;print('\n'.join(f'{k}: {v}' for k, v in sys.environ.items()))"
+        python -c "import os;print('\n'.join(f'{k}: {v}' for k, v in os.environ.items()))"
