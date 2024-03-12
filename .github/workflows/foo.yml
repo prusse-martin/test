@@ -1,0 +1,17 @@
+on: issues
+
+jobs:
+
+  foo_test:
+    name: AAA
+    if: ${{ !github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+        
+    - name: Inspect event
+      run: |
+        python -c "import os;from pathlib import Path;print(Path(os.environ['GITHUB_EVENT_PATH']).read_text
