@@ -25,3 +25,5 @@ jobs:
         echo [ERROR] asd
         echo ERROR asd
         echo asd ERROR asd
+        echo foo [bar]
+        echo foo [error]
