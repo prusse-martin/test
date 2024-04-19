@@ -1,0 +1,27 @@
+name: bar
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  barbar:
+
+    name: bar bar
+    runs-on: ubuntu-latest
+    steps:
+    
+    # - name: Set up Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: "3.10"
+        
+    - name: Test output
+      run: |
+        echo asd
+        echo asd ERROR
+        echo asd [ERROR]
+        echo asd [ERROR] asd
+        echo [ERROR] asd
+        echo ERROR asd
+        echo asd ERROR asd
