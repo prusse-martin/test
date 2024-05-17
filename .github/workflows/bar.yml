@@ -27,3 +27,11 @@ jobs:
         echo asd ERROR asd
         echo foo [bar]
         echo foo [error]
+        echo ::group::ASD
+        echo start ASD
+        echo ::group::QWE
+        echo in QWE
+        echo ::endgroup::QWE
+        echo end ASD
+        echo ::endgroup::ASD
+        echo out ASD
