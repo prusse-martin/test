@@ -6,15 +6,33 @@ on:
 jobs:
 
   barbar:
-
+  
     name: bar bar
-    runs-on: ubuntu-latest
-    steps:
     
-    # - name: Set up Python
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: "3.10"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+            
+    - name: AAA (Windows)
+      if: ${{ runner.os == 'Windows' }}
+      shell: cmd
+      run: |
+        dir .
+        dir^
+            ..
+        
+    - name: AAA (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      run: |
+        ls -la .
+        ls -la\
+            ..
         
     - name: Test output
       run: |
