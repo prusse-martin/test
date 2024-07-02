@@ -30,8 +30,8 @@ jobs:
     - name: AAA (Linux)
       if: ${{ runner.os == 'Linux' }}
       run: |
-        ls -la .
-        ls -la\
+        ls -lai .
+        ls -lai\
             ..
         
     - name: Test output
