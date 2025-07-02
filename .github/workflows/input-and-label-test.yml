@@ -27,7 +27,7 @@ jobs:
           if [[ ${{ !inputs.xxx }} = "true" ]]; then
             echo FROM LABELS
             labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
-            if [[ -n $labeledxxx ]]: then
+            if [[ -n $labeledxxx ]]; then
               echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
             else
               echo "labeled-xxx=" >> "$GITHUB_OUTPUT"
