@@ -22,7 +22,7 @@ jobs:
         id: list-xxx
         run: |
           ASD="${{ !inputs.xxx }}"
-          echo ASD
+          echo "ASD=$ASD"
           echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
           export labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
           echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
