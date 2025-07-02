@@ -38,11 +38,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        xxx: ${{ fromJSON( inputs.xxx || needs.list-runners.outputs.labeled-xxx || needs.list-runners.outputs.all-xxx ) }}
+        mxxx: ${{ fromJSON( inputs.xxx || needs.list-xxx.outputs.labeled-xxx || needs.list-xxx.outputs.all-xxx ) }}
+
 
     steps:
     - name: Do it
       run: |
           echo ASD
-          echo ${{ matrix.xxx }}
+          echo ${{ matrix.mxxx }}
           echo ASD
