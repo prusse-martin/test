@@ -6,15 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       xxx:
-        description: '??? ? ??? ??'
+        description: '??? ???'
         required: false
         type: string
         
 jobs:
   list-xxx:
-
-    if: ${{ !inputs.xxx }}
-
     runs-on: [ "ubuntu-latest" ]
     outputs:
       all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
@@ -24,6 +21,8 @@ jobs:
       - name: List xxx
         id: list-xxx
         run: |
+          ASD="${{ !inputs.xxx }}"
+          echo ASD
           echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
           export labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
           echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
