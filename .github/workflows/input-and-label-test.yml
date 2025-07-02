@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: List xxx
-        id: list-xxxx
+        id: list-xxx
         run: |
           echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
           echo "labeled-xxx=${{ join(github.event.pull_request.labels.*.name) }}" >> "$GITHUB_OUTPUT"
