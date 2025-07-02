@@ -1,0 +1,50 @@
+name: input-and-label-test
+
+on:
+  pull_request:
+    types: ["opened", "synchronize", "reopened", "labeled", "unlabeled"]
+  workflow_dispatch:
+    inputs:
+      xxx:
+        description: '???'
+        required: false
+        type: string
+        
+jobs:
+  list-xxx:
+
+    if: ${{ !inputs.xxx }}
+
+    runs-on: [ "ubuntu-latest" ]
+    outputs:
+      all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
+      labeled-xxx: ${{ steps.list-xxx.outputs.labeled-xxx }}
+
+    steps:
+      - name: List xxx
+        id: list-xxx
+        run: |
+          echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
+          export labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
+          echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
+          cat $GITHUB_OUTPUT
+          echo 'inputs.xxx=${{ inputs.xxx }}'
+
+  doit:
+    needs: [list-xxx]
+
+    runs-on: ["ubuntu-latest"]
+    timeout-minutes: 180
+
+    strategy:
+      fail-fast: false
+      matrix:
+        mxxx: ${{ fromJSON( inputs.xxx || needs.list-xxx.outputs.labeled-xxx || needs.list-xxx.outputs.all-xxx ) }}
+
+
+    steps:
+    - name: Do it
+      run: |
+          echo ASD
+          echo ${{ matrix.mxxx }}
+          echo ASD
