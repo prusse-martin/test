@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
           export labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
-          echo "labeled-xxx=\"${labeledxxx/,/\",\"}\"" >> "$GITHUB_OUTPUT"
+          echo "labeled-xxx=[\"${labeledxxx/,/\",\"}\"]" >> "$GITHUB_OUTPUT"
           cat $GITHUB_OUTPUT
           echo 'inputs.xxx=${{ inputs.xxx }}'
 
