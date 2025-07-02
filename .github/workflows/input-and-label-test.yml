@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       xxx:
-        description: '???'
+        description: '??? ???'
         required: false
         type: string
         
