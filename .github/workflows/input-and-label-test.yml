@@ -9,32 +9,46 @@ on:
         description: '??? ???'
         required: false
         type: string
-        
+  workflow_call:
+    inputs:
+      xxx:
+        description: '??? ???'
+        required: false
+        type: string
+    outputs:
+      selected:
+        description: "selected Xs"
+        value: ${{ jobs.list-xxx.outputs.selected }}
+
 jobs:
   list-xxx:
     runs-on: [ "ubuntu-latest" ]
     outputs:
       all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
       labeled-xxx: ${{ steps.list-xxx.outputs.labeled-xxx }}
+      selected: ${{ steps.list-xxx.outputs.selected }}
 
     steps:
       - name: List xxx
         id: list-xxx
         run: |
-          ASD="${{ !inputs.xxx }}"
-          echo "ASD=$ASD"
-          echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
+          allxxx="[\"X1\", \"X2\", \"X3\"]"
+          echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
           if [[ ${{ !inputs.xxx }} = "true" ]]; then
             echo FROM LABELS
             labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
             if [[ -n $labeledxxx ]]; then
-              echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
+              labeledxxx="[\"${labeledxxx//,/\",\"}\"]"
+              echo "labeled-xxx=$labeledxxx" >> "$GITHUB_OUTPUT"
+              echo "selected="$allxxxx >> "$GITHUB_OUTPUT"
             else
               echo "labeled-xxx=" >> "$GITHUB_OUTPUT"
+              echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
             fi
           else
             echo FROM DISPATCH
             echo "labeled-xxx=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
+            echo "selected=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
           fi
           cat $GITHUB_OUTPUT
           echo 'inputs.xxx=${{ inputs.xxx }}'
