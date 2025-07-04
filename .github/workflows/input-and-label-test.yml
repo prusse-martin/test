@@ -39,8 +39,8 @@ jobs:
             fi
           else
             echo FROM DISPATCH
-            echo "labeled-xxx=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
-            echo "selected=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
+            echo "labeled-xxx=${{ fromJSON( inputs.xxx ) }}" >> "$GITHUB_OUTPUT"
+            echo "selected=${{ fromJSON( inputs.xxx ) }}" >> "$GITHUB_OUTPUT"
           fi
           cat $GITHUB_OUTPUT
           echo 'inputs.xxx=${{ inputs.xxx }}'
