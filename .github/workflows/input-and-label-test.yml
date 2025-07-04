@@ -26,7 +26,7 @@ jobs:
           inputs_xxx=$( echo '${{ inputs.xxx }}' | jq -c . )
           if [[ $inputs_xxx == "[]" ]]; then
             allxxx="[\"X1\", \"X2\", \"X3\"]"
-            echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
+            echo "selected=$allxxx" >> "$GITHUB_OUTPUT"
           else
             echo "selected=${inputs_xxx}" >> "$GITHUB_OUTPUT"
           fi
