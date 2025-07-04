@@ -45,21 +45,3 @@ jobs:
           cat $GITHUB_OUTPUT
           echo 'inputs.xxx=${{ inputs.xxx }}'
 
-  doit:
-    needs: [list-xxx]
-
-    runs-on: ["ubuntu-latest"]
-    timeout-minutes: 180
-
-    strategy:
-      fail-fast: false
-      matrix:
-        mxxx: ${{ fromJSON( inputs.xxx || needs.list-xxx.outputs.labeled-xxx || needs.list-xxx.outputs.all-xxx ) }}
-
-
-    steps:
-    - name: Do it
-      run: |
-          echo ASD
-          echo ${{ matrix.mxxx }}
-          echo ASD
