@@ -1,14 +1,6 @@
 name: input-and-label-test
 
 on:
-  pull_request:
-    types: ["opened", "synchronize", "reopened", "labeled", "unlabeled"]
-  workflow_dispatch:
-    inputs:
-      xxx:
-        description: '??? ???'
-        required: false
-        type: string
   workflow_call:
     inputs:
       xxx:
