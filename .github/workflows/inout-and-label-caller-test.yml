@@ -18,8 +18,8 @@ jobs:
 
     strategy:
       fail-fast: false
-#      matrix:
-#        mxxx: ${{ fromJSON(needs.list-xxx.outputs.selected) }}
+      matrix:
+        mxxx: ${{ needs.list-xxx.outputs.selected }}
 
     steps:
     - name: Do it
@@ -30,3 +30,5 @@ jobs:
           --EOF--
           echo ASD
           python -c 'import json;import sys;print(json.loads(sys.argv[1]))' ${{ toJSON(needs.list-xxx.outputs.selected) }}
+          echo ASD
+          echo ${{ matrix.mxxx }}
