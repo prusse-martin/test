@@ -29,3 +29,6 @@ jobs:
           ${{ toJSON(needs.list-xxx.outputs) }}
           --EOF--
           echo ASD
+          cat - << --EOF--
+          echo ${{ toJSON(needs.list-xxx.outputs.selected) }}
+          --EOF--
