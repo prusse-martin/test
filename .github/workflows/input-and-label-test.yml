@@ -40,8 +40,8 @@ jobs:
             fi
           else
             echo HAVE INPUT
-            echo 'labeled-xxx=${inputs_xxx}' >> "$GITHUB_OUTPUT"
-            echo 'selected=${inputs_xxx}' >> "$GITHUB_OUTPUT"
+            echo "labeled-xxx=${inputs_xxx}" >> "$GITHUB_OUTPUT"
+            echo "selected=${inputs_xxx}" >> "$GITHUB_OUTPUT"
           fi
           echo 'cat $GITHUB_OUTPUT ---'
           cat $GITHUB_OUTPUT
