@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mxxx: ${{ needs.list-xxx.outputs.selected }}
+        mxxx: ${{ fromJSON(needs.list-xxx.outputs.selected) }}
 
     steps:
     - name: Do it
