@@ -18,12 +18,13 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        mxxx: ${{ fromJSON(needs.list-xxx.outputs.selected) }}
+#      matrix:
+#        mxxx: ${{ fromJSON(needs.list-xxx.outputs.selected) }}
 
     steps:
     - name: Do it
       run: |
           echo ASD
-          echo ${{ matrix.mxxx }}
+          #echo ${{ matrix.mxxx }}
+          echo "${{ fromJSON(needs.list-xxx.outputs.selected) }}"
           echo ASD
