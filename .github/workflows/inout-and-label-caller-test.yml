@@ -8,7 +8,7 @@ jobs:
   list-xxx:
     uses: ./.github/workflows/input-and-label-test.yml
     with:
-      xxx: ${{ join(github.event.pull_request.labels.*.name) }}
+      xxx: ${{ toJSON(github.event.pull_request.labels.*.name) }}
 
   doit:
     needs: [list-xxx]
