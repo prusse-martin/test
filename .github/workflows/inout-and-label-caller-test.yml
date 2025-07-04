@@ -1,0 +1,29 @@
+name: input-and-label-caller-test
+
+on:
+  pull_request:
+    types: ["opened", "synchronize", "reopened", "labeled", "unlabeled"]
+
+jobs:
+  list-xxx:
+    uses: octocat/octo-repo/.github/workflows/deployment.yml@main
+    with:
+      xxx: ${{ join(github.event.pull_request.labels.*.name) }}
+
+  doit:
+    needs: [list-xxx]
+
+    runs-on: ["ubuntu-latest"]
+    timeout-minutes: 180
+
+    strategy:
+      fail-fast: false
+      matrix:
+        mxxx: ${{ fromJSON( needs.list-xxx.outputs.selected ) }}
+
+    steps:
+    - name: Do it
+      run: |
+          echo ASD
+          echo ${{ matrix.mxxx }}
+          echo ASD
