@@ -29,6 +29,4 @@ jobs:
           ${{ toJSON(needs.list-xxx.outputs) }}
           --EOF--
           echo ASD
-          cat - << --EOF--
           python -c 'import json;print(json.loads("""${{ toJSON(needs.list-xxx.outputs.selected) }}"""))'
-          --EOF--
