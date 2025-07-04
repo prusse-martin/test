@@ -16,8 +16,6 @@ jobs:
   list-xxx:
     runs-on: [ "ubuntu-latest" ]
     outputs:
-      all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
-      labeled-xxx: ${{ steps.list-xxx.outputs.labeled-xxx }}
       selected: ${{ steps.list-xxx.outputs.selected }}
 
     steps:
@@ -25,25 +23,12 @@ jobs:
         id: list-xxx
         run: |
           set -x
-          allxxx="[\"X1\", \"X2\", \"X3\"]"
-          echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
-          echo 'inputs.xxx=${{ inputs.xxx }}'
-          echo '! inputs.xxx: ${{ toJSON(inputs.xxx) }}'
           inputs_xxx=$( echo '${{ inputs.xxx }}' | jq -c . )
           if [[ $inputs_xxx == "[]" ]]; then
-            if [[ -n $labeledxxx ]]; then
-              echo "labeled-xxx=$labeledxxx" >> "$GITHUB_OUTPUT"
-              echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
-            else
-              echo "labeled-xxx=" >> "$GITHUB_OUTPUT"
-              echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
-            fi
+            allxxx="[\"X1\", \"X2\", \"X3\"]"
+            echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
           else
-            echo HAVE INPUT
-            echo "labeled-xxx=${inputs_xxx}" >> "$GITHUB_OUTPUT"
             echo "selected=${inputs_xxx}" >> "$GITHUB_OUTPUT"
           fi
-          echo 'cat $GITHUB_OUTPUT ---'
+          echo 'GITHUB_OUTPUT:'
           cat $GITHUB_OUTPUT
-          echo '---'
-
