@@ -30,5 +30,5 @@ jobs:
           --EOF--
           echo ASD
           cat - << --EOF--
-          echo ${{ toJSON(needs.list-xxx.outputs.selected) }}
+          python -c 'import json;print(json.loads("""${{ toJSON(needs.list-xxx.outputs.selected) }}"""))'
           --EOF--
