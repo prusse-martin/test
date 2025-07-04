@@ -25,6 +25,5 @@ jobs:
     - name: Do it
       run: |
           echo ASD
-          #echo ${{ matrix.mxxx }}
           echo "${{ fromJSON(needs.list-xxx.outputs.selected) }}"
           echo ASD
