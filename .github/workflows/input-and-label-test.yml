@@ -24,6 +24,7 @@ jobs:
       - name: List xxx
         id: list-xxx
         run: |
+          set -x
           allxxx="[\"X1\", \"X2\", \"X3\"]"
           echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
           echo 'inputs.xxx=${{ inputs.xxx }}'
