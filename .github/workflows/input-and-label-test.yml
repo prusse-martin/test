@@ -29,7 +29,7 @@ jobs:
           echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
           echo 'inputs.xxx=${{ inputs.xxx }}'
           echo '! inputs.xxx: ${{ toJSON(inputs.xxx) }}'
-          inputs_xxx='${{ toJSON(inputs.xxx) }}'
+          inputs_xxx='${{ inputs.xxx }}'
           if [[ $inputs_xxx == "[]" ]]; then
             if [[ -n $labeledxxx ]]; then
               echo "labeled-xxx=$labeledxxx" >> "$GITHUB_OUTPUT"
