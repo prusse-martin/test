@@ -27,10 +27,8 @@ jobs:
           allxxx="[\"X1\", \"X2\", \"X3\"]"
           echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
           if [[ ${{ !inputs.xxx }} = "true" ]]; then
-            echo FROM LABELS
-            labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
+            labeledxxx="${{ inputs.xxx }}"
             if [[ -n $labeledxxx ]]; then
-              labeledxxx="[\"${labeledxxx//,/\",\"}\"]"
               echo "labeled-xxx=$labeledxxx" >> "$GITHUB_OUTPUT"
               echo "selected="$allxxxx >> "$GITHUB_OUTPUT"
             else
@@ -42,6 +40,8 @@ jobs:
             echo "labeled-xxx=${{ fromJSON( inputs.xxx ) }}" >> "$GITHUB_OUTPUT"
             echo "selected=${{ fromJSON( inputs.xxx ) }}" >> "$GITHUB_OUTPUT"
           fi
+          echo 'cat $GITHUB_OUTPUT ---'
           cat $GITHUB_OUTPUT
+          echo '---'
           echo 'inputs.xxx=${{ inputs.xxx }}'
 
