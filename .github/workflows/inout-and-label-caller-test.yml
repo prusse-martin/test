@@ -25,5 +25,5 @@ jobs:
     - name: Do it
       run: |
           echo ASD
-          echo "${{ fromJSON(needs.list-xxx.outputs.selected) }}"
+          echo "${{ toJSON(needs.list-xxx.outputs) }}"
           echo ASD
