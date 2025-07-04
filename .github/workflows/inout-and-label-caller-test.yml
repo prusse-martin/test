@@ -6,7 +6,7 @@ on:
 
 jobs:
   list-xxx:
-    uses: octocat/octo-repo/.github/workflows/deployment.yml@main
+    uses: ./.github/workflows/input-and-label-test.yml
     with:
       xxx: ${{ join(github.event.pull_request.labels.*.name) }}
 
