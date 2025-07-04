@@ -1,14 +1,6 @@
 name: input-and-label-test
 
 on:
-  pull_request:
-    types: ["opened", "synchronize", "reopened", "labeled", "unlabeled"]
-  workflow_dispatch:
-    inputs:
-      xxx:
-        description: '??? ???'
-        required: false
-        type: string
   workflow_call:
     inputs:
       xxx:
@@ -24,50 +16,19 @@ jobs:
   list-xxx:
     runs-on: [ "ubuntu-latest" ]
     outputs:
-      all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
-      labeled-xxx: ${{ steps.list-xxx.outputs.labeled-xxx }}
       selected: ${{ steps.list-xxx.outputs.selected }}
 
     steps:
       - name: List xxx
         id: list-xxx
         run: |
-          allxxx="[\"X1\", \"X2\", \"X3\"]"
-          echo "all-xxx=$allxxx" >> "$GITHUB_OUTPUT"
-          if [[ ${{ !inputs.xxx }} = "true" ]]; then
-            echo FROM LABELS
-            labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
-            if [[ -n $labeledxxx ]]; then
-              labeledxxx="[\"${labeledxxx//,/\",\"}\"]"
-              echo "labeled-xxx=$labeledxxx" >> "$GITHUB_OUTPUT"
-              echo "selected="$allxxxx >> "$GITHUB_OUTPUT"
-            else
-              echo "labeled-xxx=" >> "$GITHUB_OUTPUT"
-              echo "selected=$allxxxx" >> "$GITHUB_OUTPUT"
-            fi
+          set -x
+          inputs_xxx=$( echo '${{ inputs.xxx }}' | jq -c . )
+          if [[ $inputs_xxx == "[]" ]]; then
+            allxxx="[\"X1\", \"X2\", \"X3\"]"
+            echo "selected=$allxxx" >> "$GITHUB_OUTPUT"
           else
-            echo FROM DISPATCH
-            echo "labeled-xxx=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
-            echo "selected=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
+            echo "selected=${inputs_xxx}" >> "$GITHUB_OUTPUT"
           fi
+          echo 'GITHUB_OUTPUT:'
           cat $GITHUB_OUTPUT
-          echo 'inputs.xxx=${{ inputs.xxx }}'
-
-  doit:
-    needs: [list-xxx]
-
-    runs-on: ["ubuntu-latest"]
-    timeout-minutes: 180
-
-    strategy:
-      fail-fast: false
-      matrix:
-        mxxx: ${{ fromJSON( inputs.xxx || needs.list-xxx.outputs.labeled-xxx || needs.list-xxx.outputs.all-xxx ) }}
-
-
-    steps:
-    - name: Do it
-      run: |
-          echo ASD
-          echo ${{ matrix.mxxx }}
-          echo ASD

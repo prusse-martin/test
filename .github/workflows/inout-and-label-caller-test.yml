@@ -6,9 +6,9 @@ on:
 
 jobs:
   list-xxx:
-    uses: octocat/octo-repo/.github/workflows/deployment.yml@main
+    uses: ./.github/workflows/input-and-label-test.yml
     with:
-      xxx: ${{ join(github.event.pull_request.labels.*.name) }}
+      xxx: ${{ toJSON(github.event.pull_request.labels.*.name) }}
 
   doit:
     needs: [list-xxx]
@@ -19,11 +19,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mxxx: ${{ fromJSON( needs.list-xxx.outputs.selected ) }}
+        mxxx: ${{ fromJSON(needs.list-xxx.outputs.selected) }}
 
     steps:
     - name: Do it
       run: |
           echo ASD
-          echo ${{ matrix.mxxx }}
+          cat - << --EOF--
+          ${{ toJSON(needs.list-xxx.outputs) }}
+          --EOF--
           echo ASD
+          python -c 'import json;import sys;print(json.loads(sys.argv[1]))' ${{ toJSON(needs.list-xxx.outputs.selected) }}
+          echo ASD
+          echo ${{ matrix.mxxx }}
