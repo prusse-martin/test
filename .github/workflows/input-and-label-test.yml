@@ -12,9 +12,6 @@ on:
         
 jobs:
   list-xxx:
-
-    if: ${{ !inputs.xxx }}
-
     runs-on: [ "ubuntu-latest" ]
     outputs:
       all-xxx: ${{ steps.list-xxx.outputs.all-xxx }}
@@ -24,9 +21,21 @@ jobs:
       - name: List xxx
         id: list-xxx
         run: |
+          ASD="${{ !inputs.xxx }}"
+          echo "ASD=$ASD"
           echo "all-xxx=[\"X1\", \"X2\", \"X3\"]" >> "$GITHUB_OUTPUT"
-          export labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
-          echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
+          if [[ ${{ !inputs.xxx }} = "true" ]]; then
+            echo FROM LABELS
+            labeledxxx="${{ join(github.event.pull_request.labels.*.name) }}"
+            if [[ -n $labeledxxx ]]; then
+              echo "labeled-xxx=[\"${labeledxxx//,/\",\"}\"]" >> "$GITHUB_OUTPUT"
+            else
+              echo "labeled-xxx=" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo FROM DISPATCH
+            echo "labeled-xxx=fromJSON( inputs.xxx )" >> "$GITHUB_OUTPUT"
+          fi
           cat $GITHUB_OUTPUT
           echo 'inputs.xxx=${{ inputs.xxx }}'
 
