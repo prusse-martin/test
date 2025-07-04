@@ -25,5 +25,7 @@ jobs:
     - name: Do it
       run: |
           echo ASD
-          echo ${{ toJSON(needs.list-xxx.outputs) }}
+          cat - << --EOF--
+          ${{ toJSON(needs.list-xxx.outputs) }}
+          --EOF--
           echo ASD
