@@ -17,7 +17,8 @@ jobs:
       env:
         NEW_LABELS: ${{ steps.label-pr.outputs.new-labels }}
         ALL_LABELS: ${{ steps.label-pr.outputs.all-labels }}
-      run: |        
+      run: |
+        # Summary script.
         if [ -z "$NEW_LABELS" ]; then
           echo "No new labels were applied in this run."
         else
