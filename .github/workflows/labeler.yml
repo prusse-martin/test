@@ -10,15 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+
+    - uses: actions/checkout@v4
+
     - uses: actions/labeler@v5
       id: label-pr
-      
+
     - name: Inspect Labels
       env:
         NEW_LABELS: ${{ steps.label-pr.outputs.new-labels }}
         ALL_LABELS: ${{ steps.label-pr.outputs.all-labels }}
       run: |
-        # Summary script.
+        # Summary script!!!
         if [ -z "$NEW_LABELS" ]; then
           echo "No new labels were applied in this run."
         else
