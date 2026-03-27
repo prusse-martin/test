@@ -3,4 +3,3 @@ testing-labeler:
 - all:
   - changed-files:
     - any-glob-to-any-file: ['files/**']
-  - head-branch: ['^(?!rb-).*']
